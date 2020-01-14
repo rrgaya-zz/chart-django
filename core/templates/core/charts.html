@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<script>
+    $(document).ready(function(){
+        var endpoint = "/data/";
+    
+        $.ajax({
+            method: "GET",
+            url: endpoint,
+            success: function(data) {
+                console.log(data)
+                console.log("CUSTUMERS: " + data.customers)
+            },
+            error: function(error_data) {
+                console.log()
+                console.log(data)
+            },
+        })
+    });
+</script>
+  
+{% endblock content %}
