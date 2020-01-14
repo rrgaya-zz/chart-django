@@ -5,19 +5,22 @@
 <script>
     $(document).ready(function(){
         var endpoint = "/data/";
-    
+        var customers_django = parseInt("{{ customers }}")
+        console.log(customers_django)
+
         $.ajax({
             method: "GET",
             url: endpoint,
             success: function(data) {
                 console.log(data)
-                console.log("CUSTUMERS: " + data.customers)
+                console.log(data.customers)
             },
             error: function(error_data) {
                 console.log()
                 console.log(data)
             },
-        })
+        });
+        
     });
 </script>
   
