@@ -1,11 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="row">
-        <h1 class="text-center">Home</h1>
-    </div>
-    <div class="row">
-        <canvas class="chart" id="myChart" width="150" height="150"></canvas>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center">Home</h1><br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <canvas class="chart" id="myChart" width="150" height="150"></canvas>
+            </div>
+            <div class="col"></div>
+        </div>
     </div>
 
 <script>
