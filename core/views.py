@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.models import User
@@ -42,15 +43,26 @@ class ChartData(APIView):
         return Response(data)
 
 
-def ticket_class_view(request):
-    dataset = (
-        Passenger.objects.values("ticket_class")
-        .annotate(
-            survived_count=Count("ticket_class", filter=Q(survived=True)),
-            not_survived=Count("ticket_class", filter=Q(survived=False)),
-        )
-        .order_by("ticket_class")
+def ticket_class_view_2(request):
+    dataset = Passenger.objects \
+        .values('ticket_class') \
+        .annotate(survived_count=Count('ticket_class', filter=Q(survived=True)),
+                  not_survived_count=Count('ticket_class', filter=Q(survived=False))) \
+        .order_by('ticket_class')
 
-    )
-    return render(request, "ticket_class.html", {"dataset": dataset})
-    
+    categories = list()
+    survived_series = list()
+    not_survived_series = list()
+
+    for entry in dataset:
+        categories.append('%s Class' % entry['ticket_class'])
+        survived_series.append(entry['survived_count'])
+        not_survived_series.append(entry['not_survived_count'])
+
+    data = {
+        'categories': json.dumps(categories),
+        'survived_series': json.dumps(survived_series),
+        'not_survived_series': json.dumps(not_survived_series),
+    }
+
+    return render(request, 'core/index.html', data)
