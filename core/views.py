@@ -50,5 +50,7 @@ def ticket_class_view(request):
             not_survived=Count("ticket_class", filter=Q(survived=False)),
         )
         .order_by("ticket_class")
+
     )
     return render(request, "ticket_class.html", {"dataset": dataset})
+    
